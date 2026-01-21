@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizador de Tiempo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- PWA / iOS Configuration -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Visualizador">
+    <link rel="apple-touch-icon" href="assets/icon-192.png">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Visualizador de Tiempo</h1>
+            <div class="current-date"></div>
+            <div class="theme-selector">
+                <button class="theme-btn active" data-theme="light">Claro</button>
+                <button class="theme-btn" data-theme="dark">Oscuro</button>
+                <button class="theme-btn" data-theme="accent">Acento</button>
+            </div>
+        </header>
+
+        <nav class="mode-selector">
+            <button class="mode-btn active" data-mode="year">Año</button>
+            <button class="mode-btn" data-mode="month">Mes</button>
+            <button class="mode-btn" data-mode="week">Semana</button>
+            <button class="mode-btn" data-mode="custom">Períodos</button>
+        </nav>
+
+        <div class="visualization-container">
+            <div class="view-panel active" id="year-view"></div>
+            <div class="view-panel" id="month-view"></div>
+            <div class="view-panel" id="week-view"></div>
+            <div class="view-panel" id="custom-view"></div>
+        </div>
+
+        <div class="info-panel">
+            <div class="stat-display"></div>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
