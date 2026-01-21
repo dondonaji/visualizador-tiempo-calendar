@@ -5,45 +5,60 @@
 }
 
 :root {
-    --bg-primary: #fafafa;
-    --bg-secondary: #fff;
-    --bg-card: #fafafa;
-    --text-primary: #000;
-    --text-secondary: #666;
-    --border-color: #e0e0e0;
-    --border-hover: #000;
-    --accent-color: #000;
-    --accent-bg: #000;
-    --progress-bg: #f0f0f0;
-    --clip-color: #ff4444;
+    /* LIGHT: Swiss Minimalist - Clean, high contrast, bold touches */
+    --bg-primary: #F2F2F7;
+    /* Apple-like system gray */
+    --bg-secondary: #FFFFFF;
+    --bg-card: #FFFFFF;
+    --text-primary: #1C1C1E;
+    --text-secondary: #8E8E93;
+    --border-color: #D1D1D6;
+    --border-hover: #000000;
+    --accent-color: #000000;
+    --accent-bg: #E5E5EA;
+    /* Subtle gray for fills */
+    --active-fill: #000000;
+    /* For filled states */
+    --progress-bg: #E5E5EA;
+    --clip-color: #FF3B30;
+    /* System Red highlight */
 }
 
 [data-theme="dark"] {
-    --bg-primary: #0a0a0a;
-    --bg-secondary: #1a1a1a;
-    --bg-card: #151515;
-    --text-primary: #fff;
-    --text-secondary: #999;
-    --border-color: #333;
-    --border-hover: #fff;
-    --accent-color: #fff;
-    --accent-bg: #fff;
-    --progress-bg: #2a2a2a;
-    --clip-color: #00ff88;
+    /* DARK: Deep & Neon - OLED blacks, electric accents */
+    --bg-primary: #000000;
+    --bg-secondary: #0a0a0a;
+    /* Slightly lighter black */
+    --bg-card: #121212;
+    --text-primary: #FFFFFF;
+    --text-secondary: #8E8E93;
+    --border-color: #333333;
+    --border-hover: #FFFFFF;
+    --accent-color: #FFFFFF;
+    --accent-bg: #2C2C2E;
+    --active-fill: #FFFFFF;
+    --progress-bg: #1C1C1E;
+    --clip-color: #00FF9F;
+    /* Neon Mint */
 }
 
 [data-theme="accent"] {
-    --bg-primary: #f5f5f0;
-    --bg-secondary: #fff;
-    --bg-card: #fefefe;
-    --text-primary: #1a1a1a;
-    --text-secondary: #666;
-    --border-color: #d0d0c0;
-    --border-hover: #ff6b35;
-    --accent-color: #ff6b35;
-    --accent-bg: #ff6b35;
-    --progress-bg: #f0f0e8;
-    --clip-color: #ff6b35;
+    /* ACCENT: Warm & Tactile - Paper tones, vibrant orange */
+    --bg-primary: #FDFBF7;
+    /* Warm Paper */
+    --bg-secondary: #FFFBEB;
+    /* Cream */
+    --bg-card: #FFFFFF;
+    --text-primary: #2C211B;
+    --text-secondary: #9ea3a0;
+    --border-color: #E6DCCD;
+    --border-hover: #FF6B00;
+    --accent-color: #FF6B00;
+    --accent-bg: #FFE5D6;
+    --active-fill: #FF6B00;
+    --progress-bg: #F0EEE6;
+    --clip-color: #007AFF;
+    /* Contrast Blue */
 }
 
 body {
@@ -51,47 +66,41 @@ body {
     background: var(--bg-primary);
     color: var(--text-primary);
     min-height: 100vh;
-    padding: 40px 20px;
-
-    /* Mobile / PWA Optimizations */
-    padding-top: max(40px, env(safe-area-inset-top) + 20px);
-    padding-bottom: max(20px, env(safe-area-inset-bottom) + 20px);
-    padding-left: max(20px, env(safe-area-inset-left));
-    padding-right: max(20px, env(safe-area-inset-right));
-
+    padding: 0;
     transition: background 0.3s, color 0.3s;
     -webkit-tap-highlight-color: transparent;
 }
 
+
+
 .container {
     max-width: 1400px;
     margin: 0 auto;
+    padding: 20px;
+    padding-top: 0;
 }
 
 header {
     text-align: center;
-    margin-bottom: 60px;
-    padding-bottom: 30px;
+    padding: 40px 20px 20px;
+    margin-bottom: 40px;
     border-bottom: 1px solid var(--border-color);
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: background 0.3s, border-color 0.3s;
+}
+
+[data-theme="dark"] header {
+    background: rgba(10, 10, 10, 0.85);
 }
 
 header::before,
 header::after {
-    content: '';
-    position: absolute;
-    width: 4px;
-    height: 24px;
-    background: var(--clip-color);
-    bottom: -12px;
-}
-
-header::before {
-    left: 20%;
-}
-
-header::after {
-    right: 20%;
+    content: none;
 }
 
 h1 {

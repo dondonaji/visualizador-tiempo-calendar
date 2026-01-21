@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    
+
     <!-- PWA / iOS Configuration -->
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,6 +17,7 @@
     <meta name="apple-mobile-web-app-title" content="Visualizador">
     <link rel="apple-touch-icon" href="assets/icon-192.png">
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -29,9 +31,9 @@
         </header>
 
         <nav class="mode-selector">
-            <button class="mode-btn active" data-mode="year">Año</button>
+            <button class="mode-btn active" data-mode="week">Semana</button>
             <button class="mode-btn" data-mode="month">Mes</button>
-            <button class="mode-btn" data-mode="week">Semana</button>
+            <button class="mode-btn" data-mode="year">Año</button>
             <button class="mode-btn" data-mode="custom">Períodos</button>
         </nav>
 
@@ -49,4 +51,5 @@
 
     <script type="module" src="app.js"></script>
 </body>
+
 </html>

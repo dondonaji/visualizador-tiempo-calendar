@@ -64,18 +64,63 @@ export class WeekView {
         const days = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
         let html = '';
 
+        // Calculate progress within today (0-100%)
+        const minutesPassedToday = now.getHours() * 60 + now.getMinutes();
+        const totalMinutesInDay = 24 * 60;
+        const todayProgress = (minutesPassedToday / totalMinutesInDay) * 100;
+
         for (let i = 0; i < 7; i++) {
             const date = new Date(weekStart);
             date.setDate(weekStart.getDate() + i);
-            
+
             const isToday = date.toDateString() === now.toDateString();
             const isPast = date < now && !isToday;
-            
+
+            // Dynamic background style
+            let bgStyle = '';
+            if (isPast) {
+                bgStyle = `background: #000; color: #fff;`;
+            } else if (isToday) {
+                // Gradient fill for today
+                bgStyle = `
+                    background: linear-gradient(to right, 
+                        #000 ${todayProgress}%, 
+                        #fafafa ${todayProgress}%);
+                    color: #000;
+                `;
+                // Adjust text color if background is dark (optional, but good for contrast)
+                if (todayProgress > 50) {
+                    // Could add complex logic here, but keeping simple for now
+                    // or use mixed-blend-mode for text if possible.
+                    // Simpler approach: Just keep text black for now or mix-blend-mode.
+                }
+            } else {
+                bgStyle = `background: #fafafa; color: #000;`;
+            }
+
+            // Inline styles for specificity
+            const cellStyle = `
+                border: 1px solid ${isToday ? '#000' : '#e0e0e0'}; 
+                padding: 20px 12px; 
+                text-align: center; 
+                transition: all 0.2s; 
+                ${bgStyle}
+                ${isToday ? 'box-shadow: 0 0 0 2px #fff, 0 0 0 3px #000;' : ''}
+                position: relative;
+                overflow: hidden;
+            `;
+
+            // For "today", we might need a specific color fix for text over the black part.
+            // Using mix-blend-mode on content is a clean trick:
+            const contentStyle = isToday ? 'mix-blend-mode: difference; color: #fff;' : '';
+
             html += `
-                <div style="border: 1px solid ${isToday ? '#000' : '#e0e0e0'}; padding: 20px 12px; text-align: center; background: ${isPast ? '#000' : '#fafafa'}; color: ${isPast ? '#fff' : '#000'}; transition: all 0.2s; ${isToday ? 'box-shadow: 0 0 0 2px #fff, 0 0 0 3px #000;' : ''}">
-                    <div style="font-weight: 700; margin-bottom: 8px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.7;">${days[i]}</div>
-                    <div style="font-size: 2rem; font-weight: 700; letter-spacing: -0.02em;">${date.getDate()}</div>
-                    <div style="font-size: 0.75rem; opacity: 0.6; margin-top: 8px; text-transform: uppercase;">${date.toLocaleDateString('es-ES', { month: 'short' })}</div>
+                <div style="${cellStyle}">
+                    <div style="${contentStyle}">
+                        <div style="font-weight: 700; margin-bottom: 8px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9;">${days[i]}</div>
+                        <div style="font-size: 2rem; font-weight: 700; letter-spacing: -0.02em;">${date.getDate()}</div>
+                        <div style="font-size: 0.75rem; opacity: 0.8; margin-top: 8px; text-transform: uppercase;">${date.toLocaleDateString('es-ES', { month: 'short' })}</div>
+                    </div>
                 </div>
             `;
         }
