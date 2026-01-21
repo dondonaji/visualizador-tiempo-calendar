@@ -5,7 +5,7 @@ import { CustomPeriodsView } from './customPeriodsView.js';
 
 class TimeVisualizer {
     constructor() {
-        this.currentMode = 'year';
+        this.currentMode = 'week';
         this.currentTheme = localStorage.getItem('theme') || 'light';
         this.views = {
             year: new YearView(),

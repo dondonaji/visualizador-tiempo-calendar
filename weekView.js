@@ -64,6 +64,11 @@ export class WeekView {
         const days = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
         let html = '';
 
+        // Calculate progress within today (0-100%)
+        const minutesPassedToday = now.getHours() * 60 + now.getMinutes();
+        const totalMinutesInDay = 24 * 60;
+        const todayProgress = (minutesPassedToday / totalMinutesInDay) * 100;
+
         for (let i = 0; i < 7; i++) {
             const date = new Date(weekStart);
             date.setDate(weekStart.getDate() + i);
@@ -71,11 +76,34 @@ export class WeekView {
             const isToday = date.toDateString() === now.toDateString();
             const isPast = date < now && !isToday;
 
+            // Dynamic background style for "Today"
+            let bgStyle = '';
+            let textStyle = '';
+
+            if (isPast) {
+                bgStyle = `background: var(--accent-bg); color: var(--bg-primary); border-color: var(--accent-bg);`;
+                textStyle = `color: var(--bg-primary);`;
+            } else if (isToday) {
+                // Gradient fill from bottom to top
+                bgStyle = `
+                    background: linear-gradient(to top, 
+                        var(--accent-bg) ${todayProgress}%, 
+                        var(--bg-secondary) ${todayProgress}%);
+                `;
+                // Keep text readable. Bold for emphasis.
+                textStyle = `font-weight: 700; color: var(--text-primary); mix-blend-mode: multiply;`;
+            } else {
+                bgStyle = `background: var(--bg-secondary); color: var(--text-primary);`;
+                textStyle = `color: var(--text-primary); opacity: 0.6;`;
+            }
+
             html += `
-                <div style="border: 1px solid ${isToday ? '#000' : '#e0e0e0'}; padding: 20px 12px; text-align: center; background: ${isPast ? '#000' : '#fafafa'}; color: ${isPast ? '#fff' : '#000'}; transition: all 0.2s; ${isToday ? 'box-shadow: 0 0 0 2px #fff, 0 0 0 3px #000;' : ''}">
-                    <div style="font-weight: 700; margin-bottom: 8px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.7;">${days[i]}</div>
-                    <div style="font-size: 2rem; font-weight: 700; letter-spacing: -0.02em;">${date.getDate()}</div>
-                    <div style="font-size: 0.75rem; opacity: 0.6; margin-top: 8px; text-transform: uppercase;">${date.toLocaleDateString('es-ES', { month: 'short' })}</div>
+                <div style="border: 1px solid ${isToday ? 'var(--accent-bg)' : 'var(--border-color)'}; padding: 20px 12px; text-align: center; transition: all 0.2s; ${bgStyle} ${isToday ? 'box-shadow: 0 0 0 2px var(--bg-primary), 0 0 0 3px var(--accent-bg);' : ''}">
+                    <div style="${textStyle} position: relative; z-index: 2;">
+                        <div style="font-weight: 700; margin-bottom: 8px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">${days[i]}</div>
+                        <div style="font-size: 2rem; font-weight: 700; letter-spacing: -0.02em;">${date.getDate()}</div>
+                        <div style="font-size: 0.75rem; margin-top: 8px; text-transform: uppercase;">${date.toLocaleDateString('es-ES', { month: 'short' })}</div>
+                    </div>
                 </div>
             `;
         }
