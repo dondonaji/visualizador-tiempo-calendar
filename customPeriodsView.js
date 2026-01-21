@@ -15,7 +15,7 @@ export class CustomPeriodsView {
 
     render() {
         const now = new Date();
-        
+
         let html = `
             <h2 style="text-align: center; margin-bottom: 40px; font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Contador de Períodos</h2>
             <div class="custom-periods">
@@ -32,7 +32,7 @@ export class CustomPeriodsView {
                             <circle class="circle-bg" cx="80" cy="80" r="70"></circle>
                             <circle class="circle-progress" cx="80" cy="80" r="70" 
                                     stroke-dasharray="${2 * Math.PI * 70}"
-                                    stroke-dashoffset="${2 * Math.PI * 70}"></circle>
+                                    stroke-dashoffset="0"></circle>
                         </svg>
                         <div class="circle-text">
                             <div class="circle-value" style="font-size: 1.5rem;">${period.days}</div>
@@ -56,11 +56,11 @@ export class CustomPeriodsView {
     renderBlocks(totalDays) {
         let html = '';
         const blocksToShow = Math.min(totalDays, 100);
-        
+
         for (let i = 0; i < blocksToShow; i++) {
             html += `<div class="time-block"></div>`;
         }
-        
+
         return html;
     }
 }

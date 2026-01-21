@@ -52,7 +52,15 @@ body {
     color: var(--text-primary);
     min-height: 100vh;
     padding: 40px 20px;
+
+    /* Mobile / PWA Optimizations */
+    padding-top: max(40px, env(safe-area-inset-top) + 20px);
+    padding-bottom: max(20px, env(safe-area-inset-bottom) + 20px);
+    padding-left: max(20px, env(safe-area-inset-left));
+    padding-right: max(20px, env(safe-area-inset-right));
+
     transition: background 0.3s, color 0.3s;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .container {
@@ -126,6 +134,8 @@ h1 {
     color: var(--text-primary);
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .theme-btn:hover {
@@ -151,6 +161,8 @@ h1 {
     transition: all 0.15s ease;
     font-weight: 400;
     color: var(--text-primary);
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .mode-btn:hover {
@@ -501,28 +513,31 @@ h1 {
 
 @media (max-width: 768px) {
     body {
-        padding: 20px 10px; /* Reduced side padding */
+        padding: 20px 10px;
+        /* Reduced side padding */
     }
 
     h1 {
         font-size: 1.5rem;
     }
-    
+
     .mode-btn {
         padding: 10px 14px;
         font-size: 0.75rem;
-        flex: 1; /* Make buttons fill width */
+        flex: 1;
+        /* Make buttons fill width */
         text-align: center;
     }
-    
+
     .visualization-container {
         padding: 20px 15px;
     }
-    
+
     /* Allow 2 columns on larger phones / landscape, or stack on very small */
     /* But for 'Bento' feel, we often want dense grids. */
     .year-grid {
-        grid-template-columns: 1fr; /* Keep months full width for readability */
+        grid-template-columns: 1fr;
+        /* Keep months full width for readability */
         gap: 16px;
     }
 
@@ -536,7 +551,7 @@ h1 {
         height: 160px;
         margin: 20px auto;
     }
-    
+
     .circular-progress svg {
         width: 160px;
         height: 160px;
@@ -553,7 +568,7 @@ h1 {
 
     /* Force 2 columns for stats on mobile for dense dashboard look */
     .stat-display {
-        grid-template-columns: repeat(2, 1fr) !important; 
+        grid-template-columns: repeat(2, 1fr) !important;
         gap: 12px;
     }
 
@@ -562,7 +577,8 @@ h1 {
     }
 
     .stat-value {
-        font-size: 1.5rem; /* Smaller font for mobile density */
+        font-size: 1.5rem;
+        /* Smaller font for mobile density */
     }
 
     .stat-label {
